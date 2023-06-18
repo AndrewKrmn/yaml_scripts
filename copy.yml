@@ -1,0 +1,11 @@
+---
+- name: yml
+  hosts: clone
+  tasks:
+    - name: yml
+      copy:
+        src: /etc/ansible/pepka.sh
+        dest: /home/kaka/
+        mode: 777
+    - name: start
+      command: bash /home/kaka/pepka.sh
