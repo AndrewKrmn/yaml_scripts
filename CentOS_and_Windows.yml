@@ -1,0 +1,27 @@
+---
+- name: install softwares on CentOS and Windows and ubuntu
+  hosts: all
+  become: true
+  tasks: 
+
+    - name: install softwares on CentOS
+      remote_user: root
+      yum:
+        name: ["mc","nano","zip"]
+        state: present
+      when: ansible_os_family == 'RedHat'
+
+    - name: install softwares on ubuntu
+      remote_user: kaka
+      apt:
+        name: ["mc","nano","zip"]
+        state: present
+      when: ansible_os_family == 'Debian'
+
+    - name: Install 7zip.install
+      when: "'windows' in ansible_distribution"
+      win_chocolatey:
+        name: 7zip.install
+        version: '22.1'
+        source: http://internal/odata/repo
+        state: present
